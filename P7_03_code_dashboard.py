@@ -196,7 +196,7 @@ with col1:
     st.write("### Veuillez saisir l\'identifiant d\'un client entre 100001 et 112188 :")
     identifiant = st.number_input(' ', min_value=100001, max_value=112188)
 
-    st.write("Exemples d\'id de clients en règle : 100034 ; 113688 ; 101474" )
+    st.write("Exemples d\'id de clients en règle : 100034 ; 103688 ; 101474" )
     st.write("Exemples d\'id de clients en défaut: 10028 ; 1688 ; 19474 ")
 
 
@@ -277,9 +277,8 @@ with st.spinner('Calcul en cours'):
             results.rename({0: "Absence de défaut de paiement", 1: "Probabilité d'impayés"},
                            axis=1, inplace=True)
 
-            st.write("### Prédiction",
+            st.write("### Prédiction ",
                      results["Probabilité d'impayés"])
-
         proba = results["Probabilité d'impayés"].iloc[0]
         def_p = "Le client a déjà été en défaut de paiement : " + str(df_client_int['Défaut paiement'].iloc[0])
         if proba < 0.5:
@@ -306,7 +305,7 @@ with st.spinner('Calcul en cours'):
             voisins_int = pd.DataFrame(index=range(len(voisins_table.transpose())),
                                        columns=df_int.columns)
      
-
+        st.write(" ##:white_check_mark:##Probabilité : la valeur seuil de probabilité est 0.5, une valeur au-dessus représente un risque d'impayés important, client à surveiller et une valeur au-dessous d'un client en règle ")
         st.write("## Graphes interactifs permettant de comparer "
                      "le client à un groupe suivant un paramètre choisi")
 
@@ -330,25 +329,25 @@ with st.spinner('Calcul en cours'):
 
                 if param == "Type d'entreprise":
                     cat = df_group[df_group['SK_ID_CURR'] == identifiant]['ORGANIZATION_TYPE'].iloc[0]
-                    st.write("Type d'entreprise du client : " + cat)
+                    st.write("Type d'entreprise du client : "  + cat)
 
                     bar_plot(organization_type, 'ORGANIZATION_TYPE')
 
                 if param == "Niveau d'éducation":
                     cat = df_group[df_group['SK_ID_CURR'] == identifiant]['NAME_EDUCATION_TYPE'].iloc[0]
-                    st.write("Niveau d'éducation du client : " + cat)
+                    st.write("Niveau d'éducation du client : "  + cat)
 
                     bar_plot(education_type, 'NAME_EDUCATION_TYPE')
 
                 if param == "Niveau de revenus":
                     cat = df_group[df_group['SK_ID_CURR'] == identifiant]['AMT_INCOME'].iloc[0]
-                    st.write("Le client a des revenus situés " + cat)
+                    st.write("Le client a des revenus situés "  + cat)
 
                     bar_plot(income, 'AMT_INCOME')
 
                 if param == "Statut marital":
                     cat = df_group[df_group['SK_ID_CURR'] == identifiant]['NAME_FAMILY_STATUS'].iloc[0]
-                    st.write("Statut marital du client : " + cat)
+                    st.write("Statut marital du client : " +  cat)
 
                     bar_plot(family, 'NAME_FAMILY_STATUS')
 
